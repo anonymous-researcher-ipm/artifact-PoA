@@ -1,0 +1,20 @@
+Question:
+{question}
+
+Candidate path (includes steps and final_answer):
+{candidate}
+
+Return STRICT JSON:
+
+{
+  "score": <number>,
+  "critique": "<short>",
+  "extra": {
+    "valid": <true|false>,
+    "major_issues": ["optional", "short"]
+  }
+}
+
+Guidelines:
+- score is an overall quality score; you may use range [-1, 1].
+- valid=false if the path contains critical inconsistencies or unsupported leaps.

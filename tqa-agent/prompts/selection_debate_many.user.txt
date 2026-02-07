@@ -1,0 +1,33 @@
+Question:
+{question}
+
+Candidate IDs:
+{candidate_ids}
+
+Candidates (each includes steps with action_type, observation_brief, errors, and final_answer):
+{candidates}
+
+For each candidate:
+- pros: why it seems correct / well-supported
+- cons: potential mistakes, missing evidence, inconsistencies
+- key_evidence: cite step numbers or short evidence phrases from observations
+- risk: low | medium | high
+
+Return STRICT JSON:
+
+{
+  "comparisons": [
+    {
+      "id": "<candidate id>",
+      "pros": ["..."],
+      "cons": ["..."],
+      "key_evidence": ["..."],
+      "risk": "low|medium|high"
+    }
+  ],
+  "overall_ranking": ["<id1>", "<id2>", "<id3>"]
+}
+
+Constraints:
+- comparisons must cover ALL candidate ids exactly once.
+- overall_ranking must include ALL candidate ids exactly once.

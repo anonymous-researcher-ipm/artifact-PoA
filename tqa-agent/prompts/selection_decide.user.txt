@@ -1,0 +1,29 @@
+Question:
+{question}
+
+Candidate IDs:
+{candidate_ids}
+
+Candidates:
+{candidates}
+
+Debate result:
+{debate}
+
+Decision principles:
+- Choose the path whose steps best align with the question and table evidence.
+- Prefer internally consistent computations and well-defined operations.
+- Prefer lower risk if two candidates are similar.
+- If all are uncertain, select the one with the strongest evidence and least contradiction.
+
+Return STRICT JSON:
+
+{
+  "selected_id": "<candidate id>",
+  "justification": ["...", "..."],
+  "confidence": <number between 0 and 1>
+}
+
+Constraints:
+- justification must be 1-4 items.
+- confidence must be between 0 and 1.

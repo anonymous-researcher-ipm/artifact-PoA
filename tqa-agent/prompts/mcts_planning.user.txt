@@ -1,0 +1,51 @@
+Question:
+{question}
+
+Table headers:
+{headers}
+
+Context report:
+{context_report}
+
+Allowed action types (choose ONLY from these):
+HeaderParsing
+ColumnLocating
+RowLocating
+ColumnConstructing
+RowConstructing
+RowSorting
+Grouping
+Computing
+GeneralRetrieval
+DomainSpecificRetrieval
+ParallelDecomposing
+SerialDecomposing
+Finish
+
+CRITICAL CONSTRAINT (must follow):
+- The returned action specs will be used to construct Python dataclass actions.
+- Any unexpected field will cause a runtime error.
+- Therefore, you MUST output minimal action specs:
+  - Always include ONLY: {"type": "<ActionType>"}.
+  - Only include extra fields if you are absolutely sure they are valid dataclass fields for that action.
+
+Safe parameterization (ONLY these are allowed as extra fields):
+- For Computing ONLY, you may optionally include:
+  mode (auto|agg|expr), out_var, agg, column, row_key, expr, missing_as_zero, use_llm
+
+For all other action types:
+- Do NOT include any extra keys besides "type".
+
+Return STRICT JSON exactly:
+
+{
+  "action_specs": [
+    {"type": "<ActionType>"},
+    ...
+  ]
+}
+
+Constraints:
+- Return 1 to {topk} action_specs.
+- No keys like 'rationale', 'params', 'comment', 'why', 'confidence'.
+- No nested wrappers. No additional text.

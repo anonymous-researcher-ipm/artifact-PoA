@@ -1,0 +1,31 @@
+Question:
+{question}
+
+Headers:
+{headers}
+
+Is terminal state:
+{terminal}
+
+Hint base score:
+{hint_base_score}
+
+Known memory keys:
+{memory_keys}
+
+Scoring:
+- If terminal=true: score must be in [-1, 1]
+- If terminal=false: score must be in [0, 1]
+- Stay close to hint_base_score unless there is clear evidence the hint is wrong.
+- Prefer states that have identified relevant columns/rows and produced consistent numeric intermediates.
+
+Return STRICT JSON:
+
+{
+  "score": <number>,
+  "critique": "<one or two short sentences>",
+  "extra": {
+    "confidence": <number between 0 and 1>,
+    "signals": ["optional short tags"]
+  }
+}

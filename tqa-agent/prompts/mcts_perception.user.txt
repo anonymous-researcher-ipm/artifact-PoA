@@ -1,0 +1,44 @@
+You are given the current context of a semi-structured table QA task.
+
+INPUT
+question: {question}
+headers: {headers}
+memory_keys: {memory_keys}
+terminal: {terminal}
+
+Optional context (may be empty):
+context_report_hint: {context_report_hint}
+
+TASK
+Produce a perception report to support the Planning Agent. The report should capture:
+1) What has been resolved (header/columns/rows/numeric intermediates/answer candidates).
+2) What is missing or uncertain.
+3) The next-step intent suggestions (e.g., locate columns, locate rows, compute, finish).
+4) Any constraints you can infer from the question wording (e.g., aggregation, comparison, filtering).
+
+OUTPUT (STRICT JSON)
+{
+  "question_type": "lookup|aggregation|comparison|multi_hop|other",
+  "resolved": {
+    "has_header_info": true|false,
+    "located_columns": [
+      {"target": "<string>", "matched": "<string>", "col_index": <int>}
+    ],
+    "located_rows": [<int>],
+    "numeric_vars": ["<memory_key>", "..."],
+    "has_candidate_answer": true|false
+  },
+  "missing": [
+    "<short string>", ...
+  ],
+  "next_intents": [
+    "HeaderParsing|LocateColumns|LocateRows|FilterRows|SelectColumns|Computing|Finish|Other"
+  ],
+  "notes": "<short string>"
+}
+
+CONSTRAINTS
+- located_columns.matched must be one of headers if provided.
+- located_rows must be row indices (0-based) if provided.
+- numeric_vars must be chosen from memory_keys.
+- Do not output any text outside the JSON object.

@@ -1,0 +1,36 @@
+Evaluate the prediction against the gold label by semantic equivalence.
+
+QUESTION:
+{question}
+
+PREDICTION:
+{prediction}
+
+GOLD LABEL:
+{gold}
+
+OPTIONAL CONTEXT (may be empty):
+- answer_type_hint: {answer_type_hint}
+- tolerance_hint: {tolerance_hint}
+
+Return STRICT JSON in the following schema:
+
+{
+  "is_correct": true | false,
+  "confidence": 0.0-1.0,
+  "normalized_prediction": "<string>",
+  "normalized_gold": "<string>",
+  "match_type": "exact_string|numeric_exact|numeric_equiv|set_equiv|substring_unambiguous|semantic_equiv|incorrect|uncertain",
+  "rationale": "<1-3 sentences>",
+  "error_type": "none|wrong_value|wrong_unit|incomplete|contradiction|format_only|ambiguous|other"
+}
+
+Normalization guidance:
+- Remove commas in numbers, normalize whitespace.
+- Normalize common units and percent forms if possible (e.g., 12% == 0.12 only if the question context clearly indicates a percentage vs ratio).
+- For set/list answers: normalize to a comma-separated canonical form.
+
+Decision guidance:
+- If you are not sure, set is_correct=false and match_type="uncertain".
+- Keep rationale short and concrete.
+- Do not output any text outside the JSON object.

@@ -117,7 +117,7 @@ tqa-agent/
 │   │   ├── planning_agent.py      # Planning agent (action proposal)
 │   │   ├── execution_agent.py     # Execution agent (action execution)
 │   │   ├── evaluation_agent.py    # Evaluation agent (state scoring)
-│   │   └── context_sensing_agent.py
+│   │   └── perception_agent.py    # Perception agent (state percepting)
 │   │
 │   ├── selection/                 # Stage-2 selection agents
 │   │   ├── debate_agent.py        # Candidate path debate agent
@@ -132,10 +132,13 @@ tqa-agent/
 │   └── errors.py                  # LLM error definitions
 │
 ├── prompts/                       # Prompt templates for all agents
-│   ├── mcts_planning.*            # Planning agent prompts
-│   ├── mcts_evaluation.*          # Evaluation agent prompts
-│   ├── selection_debate.*         # Debate agent prompts
-│   └── selection_decision.*       # Decision agent prompts
+│   ├── mcts_planning.*            # Planning agent prompt
+│   ├── mcts_evaluation.*          # Evaluation agent prompt
+│   ├── mcts_perception.*          # Perception agent prompt
+│   ├── mcts_execution.*           # Execution agent prompt
+│   ├── selection_debate.*         # Debate agent prompt
+│   ├── selection_decide.*         # Decision agent prompt
+│   └── semantic_match.*           # Accuracy calculation prompt
 │
 ├── figs/                          # Framework and method figures for documentation
 │

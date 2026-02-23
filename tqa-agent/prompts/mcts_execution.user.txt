@@ -1,0 +1,43 @@
+INPUT
+question: {question}
+headers: {headers}
+memory_keys: {memory_keys}
+
+action_spec (JSON-like dict):
+{action_spec}
+
+TASK
+Given the action_spec, produce a structured execution artifact that can be consumed by deterministic code.
+If the action_spec already contains all required fields, return a minimal artifact confirming no extra work is needed.
+
+OUTPUT (STRICT JSON)
+{
+  "action_type": "<string>",
+  "status": "ok|need_more_info|invalid",
+  "artifact": { },
+  "warnings": ["<short string>", ...]
+}
+
+GUIDELINES (artifact suggestions by action_type)
+- If action_type is "LocateColumns":
+  artifact may include {"targets":[...], "must_match_headers": true}
+- If action_type is "LocateRows":
+  artifact may include {"row_filter_intent":"...", "key_terms":[...]}
+- If action_type is "Computing":
+  artifact should be a computation plan:
+    {
+      "mode": "agg|expr",
+      "out_var": "<string>",
+      "agg": "sum|avg|min|max|count",
+      "column": "<exact header>",
+      "row_key": "<optional memory key>",
+      "expr": "<expression over memory vars>",
+      "missing_as_zero": true|false
+    }
+- If action_type is "Finish":
+  artifact may include {"final_answer": "<string>", "evidence": "..."} but DO NOT fabricate evidence.
+
+CONSTRAINTS
+- If you output "column", it must be exactly one of headers.
+- Any memory key you reference must be in memory_keys.
+- Do not output any text outside the JSON object.
